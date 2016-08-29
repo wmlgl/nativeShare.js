@@ -152,18 +152,22 @@ var nativeShare = function (elementNode, config) {
         this.isloadqqApi();
         if (isqqBrowser || isucBrowser) {
             this.html();
+            return true;
         } else {
-            document.write('目前该分享插件仅支持手机UC浏览器和QQ浏览器');
+            //document.write('目前该分享插件仅支持手机UC浏览器和QQ浏览器');
+            return false;
         }
     };
+    
+    this.isSupported = this.init();
 
-    this.init();
-
-    var share = this;
-    var items = document.getElementsByClassName('nativeShare');
-    for (var i=0;i<items.length;i++) {
-        items[i].onclick = function(){
-            share.share(this.getAttribute('data-app'));
+    if(this.isSupported) {
+        var share = this;
+        var items = document.getElementsByClassName('nativeShare');
+        for (var i=0;i<items.length;i++) {
+            items[i].onclick = function(){
+                share.share(this.getAttribute('data-app'));
+            }
         }
     }
 
